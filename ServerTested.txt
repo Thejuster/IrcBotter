@@ -1,0 +1,2 @@
+irc.ircgate.it:6667
+irc.pierotofy.it:6669

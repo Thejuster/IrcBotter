@@ -1,0 +1,6 @@
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\bin\Debug\IRCBotter.exe
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\bin\Debug\IRCBotter.pdb
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\bin\Debug\ConsoleDraw.dll
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\IRCBotter.exe
+c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\IRCBotter.pdb

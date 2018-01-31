@@ -1,0 +1,2 @@
+ip:irc.pierotofy.it
+port:6669
