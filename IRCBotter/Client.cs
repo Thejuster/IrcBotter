@@ -24,27 +24,60 @@ namespace IRCBotter
             cb.DropdownItems = new List<DropdownItem>(opts.Select(_ => new DropdownItem(_, 10, "2", this)).ToArray());
             cb.Selectable = true;
 
-            var fileSelect = new FileBrowser(26, 2, 40, 10, Directory.GetCurrentDirectory(), "fileSelect", this, true);
-
             var displayConfirmBtn = new Button(1, 1, "Display Confirm", "displayConfirmBtn", this)
             {
                 Action = delegate()
                 {
 
-                    //var color = ClosestConsoleColor(211, 211, 211);
-                    //this.BackgroundColour = color;
-
                     IrcDraw(false);
-
-                    var cf = new Confirm("Open System Menu?", this, ConsoleColor.White);
-                    
+                    var cf = new Confirm("Open System Menu?", this, ConsoleColor.White);                   
                     if (cf.ShowDialog() == ConsoleDraw.DialogResult.OK)
                     {
-                       
+                        //Add Label
+                        var lb = new Label("Channel List", 1, 1, "chlist", this);
+                        var lb2 = new Label("Registred User", 1, 25, "rgnicklabel", this);
+                        var lb3 = new Label("Boot Controls", 10, 1, "botctrllbl", this);
+                        var lb4 = new Label("Allow Public Commands", 13, 5, "cb1lb", this);
+                        var lb5 = new Label("Enable Opers Commands", 15, 5, "cb2lb", this);
+                        var lb6 = new Label("Allow User Registration", 17, 5, "cb3lb", this);
+                        var lb7 = new Label("Auto Reconnection", 19, 5, "cb3lb", this);
+
+                        //Channel List
+                        opts = bots.engine.Channels;
+                        cb = new Dropdown(3, 1, opts, "1", this);
+
+                        //Registred Nick
+                        List<string> regnick = bots.engine.Nicks;
+                        var rgnick = new Dropdown(3, 25, regnick, "regnick", this);
+                        rgnick.DropdownItems = new List<DropdownItem>(regnick.Select(x => new DropdownItem(x, 10, "2", this)).ToArray());
+
+               
+                        
+                        //CheckBox
+                        var cb1 = new CheckBox(13, 1, "cb1", this) { Checked = true };
+                        var cb2 = new CheckBox(15, 1, "cb2", this) { Checked = true };
+                        var cb3 = new CheckBox(17, 1, "cb3", this) { Checked = false };
+                        var cb4 = new CheckBox(19,1,"cb4",this) {Checked = true};
+
+
 
                         CurrentlySelected = cb;
+                        
+                        //Add Controls
                         Inputs.Add(cb);
-                        Inputs.Add(fileSelect);
+                        Inputs.Add(lb);
+                        Inputs.Add(rgnick);
+                        Inputs.Add(lb2);
+                        Inputs.Add(lb3);
+                        Inputs.Add(cb1);
+                        Inputs.Add(lb4);
+                        Inputs.Add(cb2);
+                        Inputs.Add(lb5);
+                        Inputs.Add(cb3);
+                        Inputs.Add(lb6);
+                        Inputs.Add(cb4);
+                        Inputs.Add(lb7);
+
                         Draw();
                     }
                     else
@@ -54,15 +87,6 @@ namespace IRCBotter
                 }
             };
 
-
-
-
-           
-
-            
-
-           // Inputs.Add(displayAlertBtn);
-            //Inputs.Add(displayConfirmBtn);
          
     
   
@@ -77,6 +101,11 @@ namespace IRCBotter
         }
 
 
+
+        /// <summary>
+        /// Enable System Menu Drawing
+        /// </summary>
+        /// <param name="enable">True for enable rendering</param>
         public void IrcDraw(bool enable)
         {
             if (!enable)
@@ -95,7 +124,7 @@ namespace IRCBotter
 
 
         /// <summary>
-        /// Return Color for Console in RGB Value
+        /// Get Color for Console in RGB Value
         /// </summary>
         /// <param name="r">R</param>
         /// <param name="g">G</param>

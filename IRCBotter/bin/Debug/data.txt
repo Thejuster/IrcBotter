@@ -1,2 +1,2 @@
-ip:irc.pierotofy.it
-port:6669
+ip:irc.ircgate.it
+port:6667

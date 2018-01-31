@@ -102,7 +102,7 @@ namespace IRCBotter
             ConsoleColor c = Console.BackgroundColor;
             ConsoleColor c2 = Console.ForegroundColor;
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Blue;
 
             Console.WriteLine("[MOTD] {0}", message);
 

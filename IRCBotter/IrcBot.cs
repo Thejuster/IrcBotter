@@ -18,7 +18,7 @@ namespace IRCBotter
         private readonly string USER = "USER IRCbot 0 * :IRCbot";
         private readonly string _nick;
         private readonly int _maxRetries = 5;
-        IrcEngine engine = new IrcEngine();
+        public IrcEngine engine = new IrcEngine();
         private UserLevels levels = new UserLevels();
 
         public bool Menu = false;
@@ -64,6 +64,7 @@ namespace IRCBotter
                         writer.WriteLine("NICK " + _nick);
                         writer.Flush();
                         writer.WriteLine(USER);
+                        engine.Channels.Add(_channel);
                         writer.Flush();
 
                         while (true)

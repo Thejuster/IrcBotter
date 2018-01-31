@@ -4,3 +4,8 @@ c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IR
 c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\ResolveAssemblyReference.cache
 c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\IRCBotter.exe
 c:\documents and settings\administrator\documenti\visual studio 2010\Projects\IRCBotter\IRCBotter\obj\x86\Debug\IRCBotter.pdb
+C:\Users\Utente\Documents\Visual Studio 2010\Projects\IrcBotter\IRCBotter\obj\x86\Debug\IRCBotter.exe
+C:\Users\Utente\Documents\Visual Studio 2010\Projects\IrcBotter\IRCBotter\obj\x86\Debug\IRCBotter.pdb
+C:\Users\Utente\Documents\Visual Studio 2010\Projects\IrcBotter\IRCBotter\bin\Debug\IRCBotter.exe
+C:\Users\Utente\Documents\Visual Studio 2010\Projects\IrcBotter\IRCBotter\bin\Debug\IRCBotter.pdb
+C:\Users\Utente\Documents\Visual Studio 2010\Projects\IrcBotter\IRCBotter\obj\x86\Debug\IRCBotter.csprojResolveAssemblyReference.cache

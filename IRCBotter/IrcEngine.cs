@@ -9,6 +9,8 @@ namespace IRCBotter
     public class IrcEngine
     {
 
+        public List<String> Channels = new List<string>();
+        public List<String> Nicks = new List<string>() { "Thejuster","Pierotofy","Lumo" };
 
         #region Delegate
 
@@ -283,5 +285,6 @@ namespace IRCBotter
             OnCommand(this, e);
         }
         #endregion
+
     }
 }
