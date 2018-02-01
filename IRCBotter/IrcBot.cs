@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.IO;
 using System.Windows.Forms;
 using IRCBotter.Commands;
+using System.Reflection;
 
 namespace IRCBotter
 {
@@ -19,7 +20,7 @@ namespace IRCBotter
         private readonly string _nick;
         private readonly int _maxRetries = 5;
         public IrcEngine engine = new IrcEngine();
-        private UserLevels levels = new UserLevels();
+        //private UserLevels levels = new UserLevels();
 
         public bool Menu = false;
 
@@ -50,7 +51,8 @@ namespace IRCBotter
             engine.OnMessage += new IrcEngine.MessageHandler(engine_OnMessage);
             engine.OnQuit += new IrcEngine.QuitHandler(engine_OnQuit);
             engine.OnServerMessage += new IrcEngine.ServerMessageHandler(engine_OnServerMessage);
-            engine.OnCommand += new IrcEngine.CommandHandler(engine_OnCommand); 
+            engine.OnCommand += new IrcEngine.CommandHandler(engine_OnCommand);
+            engine.OnPrivateMessage += new IrcEngine.PrivateMessageHandler(engine_OnPrivateMessage);
             
             do
             {
@@ -94,7 +96,10 @@ namespace IRCBotter
 
                                         if (inputLine.Contains("PRIVMSG"))
                                         {
-                                            engine.OnMsg(inputLine);
+                                            if (inputLine.Contains("#"))
+                                                engine.OnMsg(inputLine);
+                                            else
+                                                engine.OnMessagePrivate(inputLine);
                                         }
 
                                         if (inputLine.Contains("PART"))
@@ -130,10 +135,22 @@ namespace IRCBotter
 
 
 
+        void engine_OnPrivateMessage(object sender, IrcEngine.OnPrivateMessageArgs e)
+        {
+            Message.Debug("Private Message [" + e.GetText() + "]");
+        }
+
+
+
 
         void engine_OnCommand(object sender, IrcEngine.OnCommandArgs e)
         {
-            Message.Debug(e.GetData());
+            switch (e.GetText())
+            {
+                case "!help":
+                    HelpCommand(e.GetUser(),e.GetData()); 
+                break;
+            }
         }
 
         
@@ -187,10 +204,63 @@ namespace IRCBotter
         }
 
 
-        [UserLevels(LevelRequired=0)]
-        void HelpCommand()
-        {
 
+
+       [UserLevel(LevelRequired = 0)]
+        public void HelpCommand(string user,string data)
+        {
+            bool check = CheckPermission(user);
+           
+
+            if (check)
+            {
+                Message.Debug("Help richiesto da" + )
+            }
+            else
+            {
+                Message.Error(user + " perform non authorized command");
+            }
+                      
         }
+
+
+
+
+       public static object[] GetAttribute(Type t)
+       { 
+           MethodInfo mInfo;
+           mInfo = typeof(IrcBot).GetMethod("HelpCommand");
+           object[] userLevel = mInfo.GetCustomAttributes(false);
+           return userLevel;
+       }
+
+
+
+        /// <summary>
+        /// Checking user Level to perform command
+        /// Level is setted on Attribute
+        /// </summary>
+        /// <param name="user">Username</param>
+        /// <returns>True if can perfor,</returns>
+        public bool CheckPermission(string user)
+        {
+           object[] levels = GetAttribute(typeof(IrcBot));
+           UserLevel lv = (UserLevel)levels[0];
+           int ulevel = 0;
+
+           for (int i = 0; i < engine.Nicks.Count; i++)
+           {
+               if (engine.Nicks[i] == user)
+               {
+                   ulevel = engine.Levels[i];
+               }
+           }
+
+           if (ulevel < lv.LevelRequired)
+               return false;
+           else
+             return true;
+       }
+     
     }
 }

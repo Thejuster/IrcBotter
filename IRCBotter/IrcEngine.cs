@@ -10,7 +10,8 @@ namespace IRCBotter
     {
 
         public List<String> Channels = new List<string>();
-        public List<String> Nicks = new List<string>() { "Thejuster","Pierotofy","Lumo" };
+        public List<String> Nicks = new List<string>() { "Thejuster","Pierotofy","Lumo","jacopos" };
+        public List<int> Levels = new List<int>() { 100, 0, 0, 20 };
 
         #region Delegate
 
@@ -19,6 +20,7 @@ namespace IRCBotter
         public delegate void QuitHandler(Object sender, OnQuitEventArgs e);
         public delegate void ServerMessageHandler(Object sender, OnServerMessageArgs e);
         public delegate void CommandHandler(Object sender, OnCommandArgs e);
+        public delegate void PrivateMessageHandler(Object sender, OnPrivateMessageArgs e);
 
         #endregion
 
@@ -32,6 +34,7 @@ namespace IRCBotter
         public event QuitHandler OnQuit;
         public event ServerMessageHandler OnServerMessage;
         public event CommandHandler OnCommand;
+        public event PrivateMessageHandler OnPrivateMessage;
 
         #endregion
 
@@ -100,7 +103,6 @@ namespace IRCBotter
             }
         }
 
-
         public class OnMessageEventArgs : System.EventArgs
         {
             private string message;
@@ -151,11 +153,7 @@ namespace IRCBotter
             /// <returns>Raw Data</returns>
             public string GetData()
             {
-                string nick = GetUser();
-                string channel = GetCurrentChannel();
-
-                string[] t = Regex.Split(message, "PRIVMSG");
-                return t[1];
+                return message;
             }
         }
 
@@ -246,6 +244,91 @@ namespace IRCBotter
             {
                 return msg;
             }
+
+            /// <summary>
+            /// Get current username Written message
+            /// </summary>
+            /// <returns>Username</returns>
+            public string GetUser()
+            {
+                string[] s1 = msg.Split('!');
+                string nick = s1[0].Replace(":", "");
+                return nick;
+            }
+
+
+            /// <summary>
+            /// Get Current username Channel
+            /// </summary>
+            /// <returns></returns>
+            public string GetCurrentChannel()
+            {
+                string[] t = Regex.Split(msg, "PRIVMSG");
+                string[] s1 = t[1].Split(':');
+                return s1[0];
+            }
+
+
+            /// <summary>
+            /// Get text written of username
+            /// </summary>
+            /// <returns></returns>
+            public string GetText()
+            {
+                string[] t = Regex.Split(msg, "PRIVMSG");
+                string[] s1 = t[1].Split(':');
+                return s1[1];
+            }
+        }
+
+        public class OnPrivateMessageArgs : System.EventArgs
+        {
+            private string msg;
+
+            public OnPrivateMessageArgs(string m)
+            {
+                msg = m;
+            }
+
+            public string GetData()
+            {
+                return msg;
+            }
+
+            /// <summary>
+            /// Get current username Written message
+            /// </summary>
+            /// <returns>Username</returns>
+            public string GetUser()
+            {
+                string[] s1 = msg.Split('!');
+                string nick = s1[0].Replace(":", "");
+                return nick;
+            }
+
+
+            /// <summary>
+            /// Get Current username Channel
+            /// </summary>
+            /// <returns></returns>
+            public string GetCurrentChannel()
+            {
+                string[] t = Regex.Split(msg, "PRIVMSG");
+                string[] s1 = t[1].Split(':');
+                return s1[0];
+            }
+
+
+            /// <summary>
+            /// Get text written of username
+            /// </summary>
+            /// <returns></returns>
+            public string GetText()
+            {
+                string[] t = Regex.Split(msg, "PRIVMSG");
+                string[] s1 = t[1].Split(':');
+                return s1[1];
+            }
         }
 
         #endregion
@@ -284,7 +367,40 @@ namespace IRCBotter
             OnCommandArgs e = new OnCommandArgs(m);
             OnCommand(this, e);
         }
+
+        public void OnMessagePrivate(string m)
+        {
+            OnPrivateMessageArgs e = new OnPrivateMessageArgs(m);
+            OnPrivateMessage(this, e);
+        }
         #endregion
 
+
+        #region Public Function
+
+        /// <summary>
+        /// Get Text of message based on RawData
+        /// </summary>
+        /// <param name="Data">RawData</param>
+        /// <returns>Text</returns>
+        public string GetText(string Data)
+        {
+            string[] t = Regex.Split(Data, "PRIVMSG");
+            string[] s1 = t[1].Split(':');
+            return s1[1];
+        }
+
+        /// <summary>
+        /// Get username based on RawData
+        /// </summary>
+        /// <param name="Data">RawData</param>
+        /// <returns>Get Username</returns>
+        public string GetUser(string Data)
+        {
+            string[] s1 = Data.Split('!');
+            string nick = s1[0].Replace(":", "");
+            return nick;
+        }
+        #endregion
     }
 }

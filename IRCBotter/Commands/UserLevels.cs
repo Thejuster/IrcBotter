@@ -5,11 +5,13 @@ using System.Text;
 
 namespace IRCBotter.Commands
 {
-    [AttributeUsage(AttributeTargets.All,AllowMultiple=true)]
-    class UserLevels : Attribute
+ 
+    [AttributeUsage(AttributeTargets.All ,AllowMultiple=true)]
+    class UserLevel : Attribute
     {
         public int LevelRequired { get; set; }
-
     }
+
+
 
 }
