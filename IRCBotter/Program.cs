@@ -133,7 +133,7 @@ namespace IRCBotter
 
             WindowManager.UpdateWindow(100, 48);
             WindowManager.SetWindowTitle("IRCBotter");
-            IrcBot bot = new IrcBot(host, port, "#test", "IrcBOT");
+            IrcBot bot = new IrcBot(host, port, "#test", "IrcBotter");
             new Client(host, port,bot);
         }
     }

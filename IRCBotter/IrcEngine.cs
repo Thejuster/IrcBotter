@@ -8,10 +8,22 @@ namespace IRCBotter
 {
     public class IrcEngine
     {
-
+        //Public Field
         public List<String> Channels = new List<string>();
         public List<String> Nicks = new List<string>() { "Thejuster","Pierotofy","Lumo","jacopos" };
         public List<int> Levels = new List<int>() { 100, 0, 0, 20 };
+        public List<Query> Queryes = new List<Query>();
+
+
+
+        //Structure
+        public struct Query
+        {
+            public string username;
+            public string message;
+        }
+
+      
 
         #region Delegate
 
@@ -400,6 +412,19 @@ namespace IRCBotter
             string[] s1 = Data.Split('!');
             string nick = s1[0].Replace(":", "");
             return nick;
+        }
+
+
+          /// <summary>
+          /// Get Curret user channel
+          /// </summary>
+          /// <param name="Data">RawData</param>
+          /// <returns>channel</returns>
+        public string GetCurrentChannel(string Data)
+        {
+            string[] t = Regex.Split(Data, "PRIVMSG");
+            string[] s1 = t[1].Split(':');
+            return s1[0];
         }
         #endregion
     }

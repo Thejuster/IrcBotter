@@ -9,6 +9,14 @@ using System.Windows.Forms;
 using IRCBotter.Commands;
 using System.Reflection;
 
+/*************************************************
+ * Irc Botter - By Thejuster
+ * Under GPL GNU v3 Licence
+ * Plase report bug, contribution and new feature
+ * Enjoy :)
+ * **********************************************/
+
+
 namespace IRCBotter
 {
     public class IrcBot
@@ -16,7 +24,7 @@ namespace IRCBotter
         private readonly string _host;
         private readonly string _port;
         private readonly string _channel;
-        private readonly string USER = "USER IRCbot 0 * :IRCbot";
+        private readonly string USER = "USER IrcBotter 0 * :IrcBotter";
         private readonly string _nick;
         private readonly int _maxRetries = 5;
         public IrcEngine engine = new IrcEngine();
@@ -74,7 +82,7 @@ namespace IRCBotter
                             string inputLine;
                             while ((inputLine = reader.ReadLine()) != null && Menu == false)
                             {
-                                //Console.WriteLine("<- " + inputLine);
+                                Console.WriteLine("<- " + inputLine);
 
                                
                                 // split the lines sent from the server by spaces (seems to be the easiest way to parse them)
@@ -116,6 +124,13 @@ namespace IRCBotter
                                             engine.OnServerMessages(inputLine);
                                             
                                         }
+
+                                        //Execute Queryes for all channels and user
+                                        for (int i = 0; i < engine.Queryes.Count; i++)
+                                        {
+                                            writer.WriteLine("PRIVMSG {0} {1}", engine.Queryes[i].username, engine.Queryes[i].message);
+                                            engine.Queryes.RemoveAt(i);
+                                        }
                                 }
                             }
                         }
@@ -138,6 +153,12 @@ namespace IRCBotter
         void engine_OnPrivateMessage(object sender, IrcEngine.OnPrivateMessageArgs e)
         {
             Message.Debug("Private Message [" + e.GetText() + "]");
+
+            if (e.GetText().Contains("fanculo"))
+            {
+                engine.Queryes.Add(new IrcEngine.Query() { username = e.GetUser(), message = "A fanculo ci vai sempre tu!" });
+                
+            }
         }
 
 
@@ -206,7 +227,7 @@ namespace IRCBotter
 
 
 
-       [UserLevel(LevelRequired = 0)]
+        [UserLevel(LevelRequired = 0)]
         public void HelpCommand(string user,string data)
         {
             bool check = CheckPermission(user);
@@ -214,7 +235,13 @@ namespace IRCBotter
 
             if (check)
             {
-                Message.Debug("Help richiesto da" + )
+                string us = engine.GetUser(data);
+
+                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "Ciao " + user + " hai bisogno di aiuto?"});
+                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "Ecco una piccola lista di comandi a tua disposizione" });
+                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "!cerca (per cercare su google" });
+                engine.Queryes.Add(new IrcEngine.Query() { username = user,message =""});
+                
             }
             else
             {
@@ -224,6 +251,11 @@ namespace IRCBotter
         }
 
 
+        [UserLevel(LevelRequired=50)]
+        public void VoiceCommand(string user, string data)
+        {
+
+        }
 
 
        public static object[] GetAttribute(Type t)
