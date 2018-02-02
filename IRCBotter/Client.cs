@@ -9,6 +9,13 @@ using ConsoleDraw.Windows;
 using System.IO;
 using Form = System.Windows.Forms;
 
+/*************************************************
+ * Irc Botter - By Thejuster
+ * Under GPL GNU v3 Licence
+ * Plase report bug, contribution and new feature
+ * Enjoy :)
+ * **********************************************/
+
 namespace IRCBotter
 {
     public class Client : FullWindow

@@ -3,16 +3,50 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRCBotter", "IRCBotter\IRCBotter.csproj", "{645A9C97-D14F-4760-A3DF-415040C090EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plugin Example", "Plugin Example\Plugin Example.csproj", "{EFC188F3-6555-423A-86C7-9E10A068E564}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IrcbotPlugin", "IrcbotPlugin\IrcbotPlugin.csproj", "{76F1E28C-FB1C-4079-A02C-535DE84FD48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{645A9C97-D14F-4760-A3DF-415040C090EE}.Debug|x86.ActiveCfg = Debug|x86
 		{645A9C97-D14F-4760-A3DF-415040C090EE}.Debug|x86.Build.0 = Debug|x86
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Release|Any CPU.ActiveCfg = Release|x86
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{645A9C97-D14F-4760-A3DF-415040C090EE}.Release|Mixed Platforms.Build.0 = Release|x86
 		{645A9C97-D14F-4760-A3DF-415040C090EE}.Release|x86.ActiveCfg = Release|x86
 		{645A9C97-D14F-4760-A3DF-415040C090EE}.Release|x86.Build.0 = Release|x86
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EFC188F3-6555-423A-86C7-9E10A068E564}.Release|x86.ActiveCfg = Release|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{76F1E28C-FB1C-4079-A02C-535DE84FD48A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

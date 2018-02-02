@@ -5,6 +5,15 @@ using System.Text;
 using ConsoleDraw;
 using System.Net.NetworkInformation;
 using System.IO;
+using System.Runtime.Remoting;
+using IrcbotPlugin;
+
+/*************************************************
+ * Irc Botter - By Thejuster
+ * Under GPL GNU v3 Licence
+ * Plase report bug, contribution and new feature
+ * Enjoy :)
+ * **********************************************/
 
 
 namespace IRCBotter
@@ -14,17 +23,58 @@ namespace IRCBotter
         static ConsoleColor defaults;
         static string host;
         static string port;
+        public static List<IPluginInfo> plugs = new List<IPluginInfo>();
+
 
         static void Main(string[] args)
         {
 
-           
+            //Load all Plugin
+            string[] files = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.dll");
+            
+            //Remove Non plugin library
+            foreach (string s in files)
+            {
+                try
+                {
+                    ObjectHandle hwnd = Activator.CreateInstanceFrom(s, "IrcbotPlugin.PluginInfo");
+                    plugs.Add(hwnd.Unwrap() as IPluginInfo);
+                }
+                catch { }
+            }
+
+
+ 
+            //Starting....
+
             #region Credit
 
             defaults = Console.ForegroundColor;
 
             Message.Logo();
+            Message.Notice("Plugin Detected: " + plugs.Count);
+            Console.WriteLine("");
+            Console.WriteLine("");
 
+            ConsoleColor old = Console.ForegroundColor;
+            for (int i = 0; i < plugs.Count; i++)
+            {
+                Console.Write("Loaded: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(plugs[i].name);
+                Console.ForegroundColor = old;
+                Console.Write("   Written by: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(plugs[i].author);
+                Console.ForegroundColor = old;
+                Console.Write("   Version: ");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(plugs[i].version);
+                Console.ForegroundColor = old;
+            }
+
+
+            Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
@@ -134,7 +184,11 @@ namespace IRCBotter
             WindowManager.UpdateWindow(100, 48);
             WindowManager.SetWindowTitle("IRCBotter");
             IrcBot bot = new IrcBot(host, port, "#test", "IrcBotter");
+            bot.plugs = plugs; //Assign plugin to IrcEngine
             new Client(host, port,bot);
+
+
+           
         }
     }
 }

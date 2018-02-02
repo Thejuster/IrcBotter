@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using IRCBotter.Commands;
 using System.Reflection;
+using IrcbotPlugin;
 
 /*************************************************
  * Irc Botter - By Thejuster
@@ -28,6 +29,8 @@ namespace IRCBotter
         private readonly string _nick;
         private readonly int _maxRetries = 5;
         public IrcEngine engine = new IrcEngine();
+        public List<IPluginInfo> plugs = new List<IPluginInfo>();
+
         //private UserLevels levels = new UserLevels();
 
         public bool Menu = false;
@@ -82,7 +85,8 @@ namespace IRCBotter
                             string inputLine;
                             while ((inputLine = reader.ReadLine()) != null && Menu == false)
                             {
-                                Console.WriteLine("<- " + inputLine);
+                                //Unparsed server message
+                                //Console.WriteLine("<- " + inputLine);
 
                                
                                 // split the lines sent from the server by spaces (seems to be the easiest way to parse them)
@@ -150,22 +154,39 @@ namespace IRCBotter
 
 
 
+
+        /// <summary>
+        /// When user send to bot a private message
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Arguments</param>
         void engine_OnPrivateMessage(object sender, IrcEngine.OnPrivateMessageArgs e)
         {
             Message.Debug("Private Message [" + e.GetText() + "]");
 
-            if (e.GetText().Contains("fanculo"))
+            if (e.GetText().Contains("hello"))
             {
-                engine.Queryes.Add(new IrcEngine.Query() { username = e.GetUser(), message = "A fanculo ci vai sempre tu!" });
-                
+                engine.Queryes.Add(new IrcEngine.Query() { username = e.GetUser(), message = "Hello " + e.GetUser() + " how are you?" });               
             }
         }
 
 
 
 
+
+        /// <summary>
+        /// When user write a command
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Arguments</param>
         void engine_OnCommand(object sender, IrcEngine.OnCommandArgs e)
         {
+            //Passing arguments to Plugin
+            for (int i = 0; i < plugs.Count; i++)
+            {
+                plugs[i].OnCommand(e.GetData());
+            }
+
             switch (e.GetText())
             {
                 case "!help":
@@ -183,6 +204,12 @@ namespace IRCBotter
         /// <param name="e"></param>
         void engine_OnServerMessage(object sender, IrcEngine.OnServerMessageArgs e)
         {
+            //Passing arguments to Plugin
+            for (int i = 0; i < plugs.Count; i++)
+            {
+                plugs[i].OnServerMessage(e.GetData());
+            }
+
             Message.MOTD(e.GetData());
         }
 
@@ -194,6 +221,12 @@ namespace IRCBotter
         /// <param name="e"></param>
         void engine_OnQuit(object sender, IrcEngine.OnQuitEventArgs e)
         {
+            //Passing arguments to Plugin
+            for (int i = 0; i < plugs.Count; i++)
+            {
+                plugs[i].OnQuit(e.GetData());
+            }
+
             Message.Notice(e.GetUser() + " left from " + e.GetCurrentChannel());
         }
      
@@ -203,6 +236,12 @@ namespace IRCBotter
         /// </summary>
         void engine_OnJoin(object sender, IrcEngine.OnJoinEventArgs e)
         {
+            //Passing arguments to Plugin
+            for (int i = 0; i < plugs.Count; i++)
+            {
+                plugs[i].OnJoin(e.GetData());
+            }
+
             Message.Notice(e.GetUser() + " has joined to " + e.GetCurrentChannel());
         }
 
@@ -215,13 +254,21 @@ namespace IRCBotter
         /// <param name="e">Operation</param>
         void engine_OnMessage(object sender, IrcEngine.OnMessageEventArgs e)
         {      
-            //Check if user send a command
-            if (e.GetText().StartsWith("!"))
+            //Passing arguments to Plugin
+            for (int i = 0; i < plugs.Count; i++)
             {
-                engine.OnCommands(e.GetData());
+                plugs[i].OnMessage(e.GetData());
             }
 
+
+                //Check if user send a command
+                if (e.GetText().StartsWith("!"))
+                {
+                    engine.OnCommands(e.GetData());
+                }
+
             Message.Text(e.GetCurrentChannel() + " " + e.GetUser() + ":>" + e.GetText());
+
         }
 
 
@@ -232,16 +279,11 @@ namespace IRCBotter
         {
             bool check = CheckPermission(user);
            
-
             if (check)
             {
                 string us = engine.GetUser(data);
-
                 engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "Ciao " + user + " hai bisogno di aiuto?"});
-                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "Ecco una piccola lista di comandi a tua disposizione" });
-                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "!cerca (per cercare su google" });
-                engine.Queryes.Add(new IrcEngine.Query() { username = user,message =""});
-                
+                engine.Queryes.Add(new IrcEngine.Query() { username = user, message = "Ecco una piccola lista di comandi a tua disposizione" });               
             }
             else
             {
@@ -251,6 +293,7 @@ namespace IRCBotter
         }
 
 
+
         [UserLevel(LevelRequired=50)]
         public void VoiceCommand(string user, string data)
         {
@@ -258,6 +301,13 @@ namespace IRCBotter
         }
 
 
+
+
+        /// <summary>
+        /// Get Attribute from Method
+        /// </summary>
+        /// <param name="t">Type</param>
+        /// <returns>Objects</returns>
        public static object[] GetAttribute(Type t)
        { 
            MethodInfo mInfo;

@@ -4,6 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+/*************************************************
+ * Irc Botter - By Thejuster
+ * Under GPL GNU v3 Licence
+ * Plase report bug, contribution and new feature
+ * Enjoy :)
+ * **********************************************/
+
 namespace IRCBotter
 {
     public class IrcEngine
