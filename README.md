@@ -1,2 +1,5 @@
 # IrcBotter
-An incredible IRC Bot whit plug-in, command interpreter and more 
+An incredible Irc Bot Engine for make your awesome bot.
+
+##Feature
+
