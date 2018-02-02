@@ -26,6 +26,13 @@ An incredible Irc Bot Engine for make your awesome bot.
 ![Diagram](http://pichoster.net/images/2018/02/02/bc5f8b27a3bae08bfcd890a88b5d263b.png)
 
 
+
+### Compiled Plugin
+
+![plugin](http://pichoster.net/images/2018/02/02/ff96d221305eeaf4d58e5d7ed609f726.png)
+
+
+
 ### Welcome Screen
 
 Autostart if config file called **data.txt** is stored in bin\Debug
