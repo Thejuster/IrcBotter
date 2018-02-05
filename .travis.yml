@@ -1,2 +1,10 @@
-language: csharp
-solution: IRCBotter.sln
+
+
+{
+  "language": "csharp",
+  "solution": "IRCBotter.sln",
+  "group": "stable",
+  "dist": "trusty",
+  "os": "windows"
+}
+
