@@ -1,0 +1,4 @@
+
+build:
+verbosity: minimal
+publish_wap: true
