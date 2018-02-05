@@ -1,6 +1,10 @@
 # IrcBotter
 An incredible Irc Bot Engine for make your awesome bot.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/d8uyi9qignx8v3g2?svg=true)](https://ci.appveyor.com/project/Thejuster/ircbotter)
+
+
+
 ### Feature Developed and in Develop
 
 - [X] Plugin Host
