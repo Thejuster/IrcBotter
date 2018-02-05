@@ -1,4 +1,4 @@
 
 build:
-verbosity: minimal
+verbomity: minimal
 publish_wap: true
